@@ -1,44 +1,46 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <title>Basic Marketplace</title>
-        <link rel="stylesheet" href="styles.css"/>
-    </head>
 
-    <body>
-        <h1>Basic Marketplace</h1>
-        <div id="wallet"></div>
+<head>
+    <title>Basic Marketplace</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <h1>Basic Marketplace</h1>
+    <div id="wallet"></div>
+    <div>
+        <h2>Add New Item</h2>
         <div>
-            <h2>Add New Item</h2>
+            <input type="text" id="new_itemname" placeholder="Item Name..." />
+            <input type="text" id="new_askingprice" placeholder="Asking Price..." />
             <div>
-                <input type="text" id="new_itemname" placeholder="Item Name..." />
-                <input type="text" id="new_askingprice" placeholder="Asking Price..." />
-                <div>
-                    <button type="button" class="btn_add">Add Item</button>
-                </div>
+                <button type="button" class="btn_add">Add Item</button>
             </div>
         </div>
+    </div>
 
-        <div>
-            <h2>All Items</h2>
-            <div id="allItems">
-                <!--TO DO: Load all items here-->
-            </div>
-            <div id="itemTemplate" style="display: none;">
-                <div class="card">
-                    <div class="container">
-                        <strong>Item Name</strong>: <span class="itemName"></span> <br />
-                        <strong>Item Creator</strong>: <span class="itemCreator"></span> <br />
-                        <strong>Item Owner</strong>: <span class="itemOwner"></span> <br />
-                        <strong>Asking Price</strong>: <span class="askingPrice"></span> <br />
-                        <strong>Item Status</strong>: <span class="itemStatus"></span> <br />
-                        <button type="button" class="btn_buy" data-id="0">Buy</button>
-                    </div>
+    <div>
+        <h2>All Items</h2>
+        <div id="allItems">
+            <!--TO DO: Load all items here-->
+        </div>
+        <div id="itemTemplate" style="display: none;">
+            <div class="card">
+                <div class="container">
+                    <strong>Item Name</strong>: <span class="itemName"></span> <br />
+                    <strong>Item Creator</strong>: <span class="itemCreator"></span> <br />
+                    <strong>Item Owner</strong>: <span class="itemOwner"></span> <br />
+                    <strong>Asking Price</strong>: <span class="askingPrice"></span> <br />
+                    <strong>Item Status</strong>: <span class="itemStatus"></span> <br />
+                    <button type="button" class="btn_buy" data-id="0">Buy</button>
                 </div>
             </div>
         </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-        <script src="app.js"></script>
-    </body>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
 </html>

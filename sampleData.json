@@ -1,0 +1,16 @@
+[
+  {
+    "itemName": "Item 1",
+    "creator": "Creator 1 address",
+    "itemOwner": "Owner 1 address",
+    "askingPrice": "100",
+    "isSold": false
+  },
+  {
+    "itemName": "Item 2",
+    "creator": "Creator 2 address",
+    "itemOwner": "Owner 2 address",
+    "askingPrice": "50",
+    "isSold": true
+  }
+]

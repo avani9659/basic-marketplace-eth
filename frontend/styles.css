@@ -1,8 +1,8 @@
-body{
+body {
     margin: 30px;
 }
 
-button{
+button {
     background-color: #00009c;
     border: none;
     color: white;
@@ -15,12 +15,12 @@ button{
     border-radius: 5px;
 }
 
-button:hover{
+button:hover {
     cursor: pointer;
     background-color: #0000cd;
 }
 
-input[type=text]{
+input[type=text] {
     padding: 10px 15px;
     margin: 8px 0;
     box-sizing: border-box;
@@ -28,7 +28,7 @@ input[type=text]{
 
 .card {
     width: 60%;
-    box-shadow: 0 1px 2px 1px rgba(0,0,0,0.2);
+    box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     padding: 5px;
     margin-bottom: 10px;
