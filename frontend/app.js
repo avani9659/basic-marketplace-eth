@@ -13,6 +13,8 @@ App = {
           .find(".itemStatus")
           .text(data[i].isSold ? "Sold" : "Available");
 
+        itemTemplate.find(".btn_buy").attr("data-id", data[i].id);
+
         data[i].isSold
           ? itemTemplate.find(".btn_buy").hide()
           : itemTemplate.find(".btn_buy").show();
@@ -20,6 +22,22 @@ App = {
         allItemsDiv.append(itemTemplate.html());
       }
     });
+
+    return App.bindEvents();
+  },
+
+  bindEvents: function () {
+    $(document).on("click", ".btn_add", App.handleAdd);
+    $(document).on("click", ".btn_buy", { id: this.id }, App.handleBuy);
+  },
+
+  handleAdd: function () {
+    console.log("add button click");
+  },
+
+  handleBuy: function (event) {
+    var productId = parseInt($(event.target).data("id"));
+    console.log(productId);
   },
 };
 
