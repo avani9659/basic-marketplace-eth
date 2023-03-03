@@ -1,5 +1,15 @@
 App = {
   init: async function () {
+    //this will as application to get a signer. In our case, signer is Metamask.
+    const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+
+    await provider.send("eth_requestAccounts", []);
+    const signer = provider.getSigner();
+    let userAddress = await signer.getAddress();
+
+    document.getElementById("wallet").innerText =
+      "Your wallet address is " + userAddress;
+
     $.getJSON("../sampleData.json", function (data) {
       var allItemsDiv = $("#allItems");
       var itemTemplate = $("#itemTemplate");
@@ -31,13 +41,10 @@ App = {
     $(document).on("click", ".btn_buy", { id: this.id }, App.handleBuy);
   },
 
-  handleAdd: function () {
-    console.log("add button click");
-  },
+  handleAdd: function () {},
 
   handleBuy: function (event) {
     var productId = parseInt($(event.target).data("id"));
-    console.log(productId);
   },
 };
 
