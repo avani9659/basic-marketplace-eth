@@ -1,4 +1,5 @@
 App = {
+  contract: {},
   init: async function () {
     //this will as application to get a signer. In our case, signer is Metamask.
     const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
@@ -10,28 +11,44 @@ App = {
     document.getElementById("wallet").innerText =
       "Your wallet address is " + userAddress;
 
-    $.getJSON("../sampleData.json", function (data) {
-      var allItemsDiv = $("#allItems");
-      var itemTemplate = $("#itemTemplate");
+    //we get this address in console when we deploy the contract
+    const resourceAddress = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
 
-      for (let i = 0; i < data.length; i++) {
-        itemTemplate.find(".itemName").text(data[i].itemName);
-        itemTemplate.find(".itemOwner").text(data[i].itemOwner);
-        itemTemplate.find(".itemCreator").text(data[i].creator);
-        itemTemplate.find(".askingPrice").text(data[i].askingPrice);
-        itemTemplate
-          .find(".itemStatus")
-          .text(data[i].isSold ? "Sold" : "Available");
+    $.getJSON(
+      "../artifacts/contracts/BasicMarketPlace.sol/BasicMarketPlace.json",
+      function (BasicMarketplaceArtifact) {
+        const contract = new ethers.Contract(
+          resourceAddress,
+          BasicMarketplaceArtifact.abi,
+          signer
+        );
 
-        itemTemplate.find(".btn_buy").attr("data-id", data[i].id);
+        App.contract = contract;
 
-        data[i].isSold
-          ? itemTemplate.find(".btn_buy").hide()
-          : itemTemplate.find(".btn_buy").show();
+        contract.getProducts().then((data) => {
+          var allItemsDiv = $("#allItems");
+          var itemTemplate = $("#itemTemplate");
 
-        allItemsDiv.append(itemTemplate.html());
+          for (let i = 0; i < data.length; i++) {
+            itemTemplate.find(".itemName").text(data[i].itemName);
+            itemTemplate.find(".itemOwner").text(data[i].itemOwner);
+            itemTemplate.find(".itemCreator").text(data[i].creator);
+            itemTemplate.find(".askingPrice").text(data[i].askingPrice);
+            itemTemplate
+              .find(".itemStatus")
+              .text(data[i].isSold ? "Sold" : "Available");
+
+            itemTemplate.find(".btn_buy").attr("data-id", data[i].id);
+
+            data[i].isSold
+              ? itemTemplate.find(".btn_buy").hide()
+              : itemTemplate.find(".btn_buy").show();
+
+            allItemsDiv.append(itemTemplate.html());
+          }
+        });
       }
-    });
+    );
 
     return App.bindEvents();
   },
@@ -41,10 +58,20 @@ App = {
     $(document).on("click", ".btn_buy", { id: this.id }, App.handleBuy);
   },
 
-  handleAdd: function () {},
+  handleAdd: function () {
+    //get the user input
+    var newItemName = $("#new_itemname").val();
+    var newAskingPrice = $("#new_askingprice").val();
+
+    //when we call the method in contract, metamask will ask us to confirm the transaction
+    //and show the estimated gas fee for this transaction to complete
+    App.contract.addProduct(newItemName, newAskingPrice);
+  },
 
   handleBuy: function (event) {
     var productId = parseInt($(event.target).data("id"));
+
+    App.contract.sellProduct(productId);
   },
 };
 

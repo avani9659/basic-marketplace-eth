@@ -5,7 +5,7 @@ module.exports = {
   solidity: "0.8.17",
   networks: {
     hardhat: {
-      chainid: 31337,
+      chainId: 31337,
     },
   },
 };
